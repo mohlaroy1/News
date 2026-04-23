@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.utils.text import slugify
 from django.db import models
 
 
@@ -30,6 +31,7 @@ class Author(models.Model):
 
 class Article(models.Model):
     title=models.CharField(max_length=255)
+    slug=models.SlugField(blank=True,null=True,unique=True,max_length=260)
     intro=models.TextField(max_length=1000)
     cover=models.ImageField(upload_to='article/cover/')
 
@@ -41,13 +43,32 @@ class Article(models.Model):
     tags=models.ManyToManyField(Tag)
 
     published=models.BooleanField(default=False)
+    important=models.BooleanField(default=False)
     created_at=models.DateTimeField(auto_now_add=True)
 
     objects=models.Manager()
     pub_objects=PublishedManager()
 
+
+
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if self.important:
+            Article.objects.exclude(id=self.id).update(important=False)
+
+        if not self.slug:
+            base_slug=slugify(self.title)
+            slug=base_slug
+
+            count=1
+            while Article.objects.filter(slug=slug).exists():
+                slug=f"{base_slug}-{count}"
+                count+=1
+
+            self.slug=slug
+        super().save(*args, **kwargs)
 
 
 class Context(models.Model):

@@ -4,8 +4,12 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
+from main.views import *
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', HomeView.as_view(), name='home'),
+
 ]
 
 
