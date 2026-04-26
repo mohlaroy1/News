@@ -120,6 +120,14 @@ class Newsletter(models.Model):
         return f"{self.email}"
 
 
+class Moment(models.Model):
+    title=models.CharField(max_length=255)
+    photo=models.ImageField(upload_to='moments')
+    author=models.ForeignKey(Author,on_delete=models.SET_NULL,null=True)
+    created_at=models.DateTimeField(auto_now_add=True)
+
+
+
 
 
 
