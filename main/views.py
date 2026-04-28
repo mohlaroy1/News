@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.views import View
 from django.views.generic import DetailView
+from django.db.models import Q
+from django.contrib import messages
 
 from .models import *
 
@@ -28,11 +30,45 @@ class NewsletterCreateView(View):
 class ArticleDetailsView(DetailView):
     def get(self,request,slug):
         article=get_object_or_404(Article,slug=slug)
-        context = {'article':article}
+        like_articles=Article.objects.filter(
+            Q(category=article.category) | Q(tags__in=article.tags.all())
+        ).distinct().order_by('-created_at')[:6]
+
+        context = {
+            'article':article,
+            'like_articles':like_articles,
+        }
         return render(request,'detail-page.html',context)
 
 
+class CommentCreateView(View):
+    def post(self,request,slug):
+        Comment.objects.create(
+            name=request.POST['name'],
+            email=request.POST['email'],
+            text=request.POST['text'],
+            article=get_object_or_404(Article,slug=slug),
+        )
+        return redirect('article-details',slug=slug)
 
+
+class ContactView(View):
+    def get(self,request):
+        return render(request,'contact.html')
+
+    def post(self, request):
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+
+        # Debug (optional)
+        print(name, email, phone, subject, message)
+
+        messages.success(request, "Xabar yuborildi!")
+
+        return redirect('contact-us')
 
 
 

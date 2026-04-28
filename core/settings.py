@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-sdcqh%!4$mf&2x%%%5rikuzyy4ic+^)tg9^7me4qflob+qs7rd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.weather',
             ],
         },
     },
