@@ -72,5 +72,22 @@ class ContactView(View):
 
 
 
+def SearchArticlesView(request):
+    query = request.GET.get('q')
+    results = []
+
+    if query:
+        results = Article.objects.filter(
+            Q(title__icontains=query) |
+            Q(intro__icontains=query)
+        )
+
+    return render(request, 'search_results.html', {
+        'query': query,
+        'results': results
+    })
+
+
+
 
 

@@ -4,7 +4,7 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from main.views import HomeView, NewsletterCreateView, ArticleDetailsView, CommentCreateView, ContactView
+from main.views import HomeView, NewsletterCreateView, ArticleDetailsView, CommentCreateView, ContactView,SearchArticlesView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,7 +13,7 @@ urlpatterns = [
     path('newsletter/create/', NewsletterCreateView.as_view(), name='newsletter-create'),
     path('<slug:slug>/add-comment/', CommentCreateView.as_view(), name='comment-create'),
     path('contact-us/', ContactView.as_view(), name='contact-us'),
-
+    path('search/',SearchArticlesView, name='search-articles'),
 
 
 ]
