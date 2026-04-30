@@ -89,7 +89,14 @@ def SearchArticlesView(request):
 
 
 class CategoryView(View):
-    def get(self,request):
+    def get(self,request,slug):
+        category=get_object_or_404(Category,slug=slug)
+        articles=Article.pub_objects.filter(category=category)
+        context = {
+            'category':category,
+            'articles':articles,
+        }
+
         return render(request,'category.html')
 
 

@@ -58,7 +58,9 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Kategoriyalar</a>
                                     <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                         {% for category in nav_categories %}
-                                            <a href="#" class="dropdown-item">{{ category.name }}</a>
+                                            {% if category.slug %}
+                                                <a href="{% url 'category' category.slug %}" class="dropdown-item">{{ category.name }}</a>
+                                            {% endif %}
                                         {% endfor %}
                                     </div>
                                 </div>
