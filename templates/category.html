@@ -3,200 +3,72 @@
 
 {% block content %}
 
-    <!-- Page Header Start -->
-    <div class="container-fluid bg-dark py-3 mb-3">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item">
-                        <a href="{% url 'home' %}" class="text-white text-decoration-none">
-                            <i class="fas fa-home me-1"></i>Bosh sahifa
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="#" class="text-primary text-decoration-none">Kategoriyalar</a>
-                    </li>
-                    <li class="breadcrumb-item active text-secondary" aria-current="page">
-                        Texnologiya
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <!-- Category Articles Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row g-4">
 
-    <!-- Category Title Start -->
-    <div class="container-fluid py-3">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div class="d-flex align-items-center">
-                    <div class="bg-primary me-3" style="width: 5px; height: 35px; border-radius: 3px;"></div>
-                    <h4 class="text-uppercase fw-bold mb-0">Texnologiya</h4>
-                </div>
-                <span class="text-muted small">
-                    <i class="fas fa-newspaper me-1 text-primary"></i>
-                    Jami: <strong class="text-dark">6</strong> ta maqola
-                </span>
-            </div>
-        </div>
-    </div>
-    </div>
-                        </div>
-                        <div class="col-md-8 ps-md-4 pt-3 pt-md-0">
-                            <div class="d-flex flex-wrap gap-3 mb-2">
-                                <span class="text-muted small"><i class="fas fa-user-circle text-primary me-1"></i>Nilufar Karimova</span>
-                                <span class="text-muted small"><i class="fas fa-calendar-alt text-primary me-1"></i>10 Apr, 2025</span>
-                                <span class="text-muted small"><i class="fas fa-eye text-primary me-1"></i>3,145 ko'rishlar</span>
-                            </div>
-                            <h5 class="fw-bold mb-2">
-                                <a href="#" class="text-dark text-decoration-none article-title-link">Elektr avtomobillar bozori: O'zbekistonda yangi imkoniyatlar</a>
-                            </h5>
-                            <p class="text-muted mb-3" style="font-size: 0.92rem; line-height: 1.65;">
-                                O'zbekistonda elektr transport vositalariga bo'lgan qiziqish ortib bormoqda. Hukumat tomonidan taqdim etilayotgan imtiyozlar va zaryadlash infratuzilmasining rivojlanishi bu sohadagi o'sishni yanada tezlashtirmoqda...
-                            </p>
-                            <div class="d-flex flex-wrap gap-1 mb-3">
-                                <a href="#" class="badge text-decoration-none" style="background:#f0f4ff;color:#2c6fad;font-size:11px;font-weight:500;padding:4px 9px;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Elektr avto</a>
-                                <a href="#" class="badge text-decoration-none" style="background:#f0f4ff;color:#2c6fad;font-size:11px;font-weight:500;padding:4px 9px;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Innovatsiya</a>
-                            </div>
-                            <a href="#" class="btn btn-sm btn-outline-primary rounded-pill px-3">Batafsil o'qish <i class="fas fa-arrow-right ms-1" style="font-size:11px;"></i></a>
-                        </div>
+                <!-- Main Content Start -->
+                <div class="col-lg-12">
+                    <div class="mb-4">
+                        <h1 class="display-5 mb-3">{{ category.name }} yangiliklari</h1>
                     </div>
 
-                    <span class="text-muted small"><i class="fas fa-user-circle text-primary me-1"></i>Zulfiya Rashidova</span>
-                                <span class="text-muted small"><i class="fas fa-calendar-alt text-primary me-1"></i>01 Apr, 2025</span>
-                                <span class="text-muted small"><i class="fas fa-eye text-primary me-1"></i>1,760 ko'rishlar</span>
-                            </div>
-                            <h5 class="fw-bold mb-2">
-                                <a href="#" class="text-dark text-decoration-none article-title-link">2025 yilning eng yaxshi smartfonlari: to'liq taqqoslash</a>
-                            </h5>
-                            <p class="text-muted mb-3" style="font-size: 0.92rem; line-height: 1.65;">
-                                Yangi avlod smartfonlari bozorga kirib keldi. Samsung, Apple va Xiaomi o'rtasidagi raqobat tobora qizg'inlashmoqda. Biz siz uchun eng muhim xususiyatlarni solishtirdik va eng yaxshi tanlovni aniqladik...
-                            </p>
-                            <div class="d-flex flex-wrap gap-1 mb-3">
-                                <a href="#" class="badge text-decoration-none" style="background:#f0f4ff;color:#2c6fad;font-size:11px;font-weight:500;padding:4px 9px;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Smartfon</a>
-                                <a href="#" class="badge text-decoration-none" style="background:#f0f4ff;color:#2c6fad;font-size:11px;font-weight:500;padding:4px 9px;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Gadjet</a>
-                            </div>
-                            <a href="#" class="btn btn-sm btn-outline-primary rounded-pill px-3">Batafsil o'qish <i class="fas fa-arrow-right ms-1" style="font-size:11px;"></i></a>
-                        </div>
-                    </div>
+                    {% for article in articles %}
+                        <!-- Article Item Start -->
+                        <div class="position-relative border-bottom pb-4 mb-4">
+                            <div class="row g-4 align-items-center">
 
-                    <span class="text-muted small"><i class="fas fa-user-circle text-primary me-1"></i>Kamola Usmonova</span>
-                                <span class="text-muted small"><i class="fas fa-calendar-alt text-primary me-1"></i>22 Mar, 2025</span>
-                                <span class="text-muted small"><i class="fas fa-eye text-primary me-1"></i>2,100 ko'rishlar</span>
-                            </div>
-                            <h5 class="fw-bold mb-2">
-                                <a href="#" class="text-dark text-decoration-none article-title-link">Kvant kompyuterlari: oddiy kompyuterlar davrining oxirimi?</a>
-                            </h5>
-                            <p class="text-muted mb-3" style="font-size: 0.92rem; line-height: 1.65;">
-                                Google va IBM kvant hisoblash sohasida yangi rekordlar o'rnatmoqda. Ushbu texnologiya bir kunda millionlab hisob-kitoblarni amalga oshirish imkonini beradi. Ammo oddiy foydalanuvchilar uchun bu hali ham uzoq kelajak...
-                            </p>
-                            <div class="d-flex flex-wrap gap-1 mb-3">
-                                <a href="#" class="badge text-decoration-none" style="background:#f0f4ff;color:#2c6fad;font-size:11px;font-weight:500;padding:4px 9px;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Kvant</a>
-                                <a href="#" class="badge text-decoration-none" style="background:#f0f4ff;color:#2c6fad;font-size:11px;font-weight:500;padding:4px 9px;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Google</a>
-                            </div>
-                            <a href="#" class="btn btn-sm btn-outline-primary rounded-pill px-3">Batafsil o'qish <i class="fas fa-arrow-right ms-1" style="font-size:11px;"></i></a>
-                        </div>
-                    </div>
+                                <div class="col-md-5">
+                                    <div class="overflow-hidden rounded">
+                                        <img
+                                            src="{% if article.cover %}{{ article.cover.url }}{% else %}{% static 'img/news-1.jpg' %}{% endif %}"
+                                            class="img-fluid w-100 img-zoomin rounded"
+                                            alt="#">
+                                    </div>
+                                </div>
 
-                    <!-- Pagination -->
-                    <div class="d-flex justify-content-center mt-4">
-                        <ul class="pagination">
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="fas fa-angle-left"></i></span>
-                            </li>
-                            <li class="page-item active"><span class="page-link">1</span></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+                                <div class="col-md-7">
+                                    <a href="{% url 'article-details' article.slug %}" class="h3 link-hover">
+                                        {{ article.title }}
+                                    </a>
+
+                                    <p class="mt-3 mb-3">
+                                        {{ article.intro }}
+                                    </p>
+
+                                    <div class="d-flex flex-wrap text-muted mb-3">
+                                        <small class="me-3">
+                                            <i class="fas fa-user text-primary me-1"></i> {{ article.author }}
+                                        </small>
+                                        <small class="me-3">
+                                            <i class="fas fa-eye text-primary me-1"></i> {{ article.views }} ko'rishlar
+                                        </small>
+                                        <small>
+                                            <i class="fas fa-calendar-alt text-primary me-1"></i> {{ article.created_at|date:"d.m.Y H:i" }}
+                                        </small>
+                                    </div>
+
+                                    <div class="d-flex flex-wrap gap-2">
+                                        {% for tag in article.tags.all %}
+                                            <a href="#" class="btn btn-sm btn-outline-primary rounded-pill">
+                                                {{ tag.name }}
+                                            </a>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Article Item End -->
+                    {% endfor %}
 
                 </div>
-                !-- Main Articles Column End -->
-
-
-                <!-- Sidebar Start -->
-                <div class="col-lg-4 ps-lg-5">
-
-                    <!-- Popular Articles -->
-                    <div class="mb-5">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="bg-primary me-3" style="width: 4px; height: 28px; border-radius: 3px;"></div>
-                            <h5 class="text-uppercase fw-bold mb-0">Eng Ko'p O'qilgan</h5>
-                        </div>
-                        <a href="#" class="text-decoration-none">
-                            <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                                <div class="overflow-hidden rounded flex-shrink-0" style="width:80px;height:65px;">
-                                    <img src="{% static 'img/news-1.jpg' %}" class="img-zoomin img-fluid w-100 h-100" style="object-fit:cover;" alt="">
-                                </div>
-                                <div class="ps-3">
-                                    <p class="text-dark fw-semibold mb-1 lh-sm" style="font-size:0.88rem;">SpaceX va NASA: Marsga sayohat rejalari yangilanmo...</p>
-                                    <small class="text-muted"><i class="fas fa-eye text-primary me-1"></i>5,310 <span class="mx-1">·</span> <i class="fas fa-calendar-alt text-primary me-1"></i>28 Mar</small>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="text-decoration-none">
-                            <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                                <div class="overflow-hidden rounded flex-shrink-0" style="width:80px;height:65px;">
-                                    <img src="{% static 'img/news-2.jpg' %}" class="img-zoomin img-fluid w-100 h-100" style="object-fit:cover;" alt="">
-                                </div>
-                                <div class="ps-3">
-                                    <p class="text-dark fw-semibold mb-1 lh-sm" style="font-size:0.88rem;">Sun'iy intellekt 2025 yilda qanday o'zgarishlar kel...</p>
-                                    <small class="text-muted"><i class="fas fa-eye text-primary me-1"></i>4,820 <span class="mx-1">·</span> <i class="fas fa-calendar-alt text-primary me-1"></i>15 Apr</small>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="text-decoration-none">
-                            <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                                <div class="overflow-hidden rounded flex-shrink-0" style="width:80px;height:65px;">
-                                    <img src="{% static 'img/news-3.jpg' %}" class="img-zoomin img-fluid w-100 h-100" style="object-fit:cover;" alt="">
-                                </div>
-                                <div class="ps-3">
-                                    <p class="text-dark fw-semibold mb-1 lh-sm" style="font-size:0.88rem;">Elektr avtomobillar bozori: O'zbekistonda yangi imk...</p>
-                                    <small class="text-muted"><i class="fas fa-eye text-primary me-1"></i>3,145 <span class="mx-1">·</span> <i class="fas fa-calendar-alt text-primary me-1"></i>10 Apr</small>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="text-decoration-none">
-                            <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                                <div class="overflow-hidden rounded flex-shrink-0" style="width:80px;height:65px;">
-                                    <img src="{% static 'img/news-4.jpg' %}" class="img-zoomin img-fluid w-100 h-100" style="object-fit:cover;" alt="">
-                                </div>
-                                <div class="ps-3">
-                                    <p class="text-dark fw-semibold mb-1 lh-sm" style="font-size:0.88rem;">Kiberhujumlardan qanday himoyalanish kerak?</p>
-                                    <small class="text-muted"><i class="fas fa-eye text-primary me-1"></i>2,987 <span class="mx-1">·</span> <i class="fas fa-calendar-alt text-primary me-1"></i>05 Apr</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <a href="#" class="badge text-decoration-none py-2 px-3" style="background:#f0f4ff;color:#2c6fad;font-size:12px;font-weight:500;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Smartfon</a>
-                            <a href="#" class="badge text-decoration-none py-2 px-3" style="background:#f0f4ff;color:#2c6fad;font-size:12px;font-weight:500;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Kiberhavfsizlik</a>
-                            <a href="#" class="badge text-decoration-none py-2 px-3" style="background:#f0f4ff;color:#2c6fad;font-size:12px;font-weight:500;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Kosmos</a>
-                            <a href="#" class="badge text-decoration-none py-2 px-3" style="background:#f0f4ff;color:#2c6fad;font-size:12px;font-weight:500;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Elektr avto</a>
-                            <a href="#" class="badge text-decoration-none py-2 px-3" style="background:#f0f4ff;color:#2c6fad;font-size:12px;font-weight:500;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Gadjet</a>
-                            <a href="#" class="badge text-decoration-none py-2 px-3" style="background:#f0f4ff;color:#2c6fad;font-size:12px;font-weight:500;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Kvant</a>
-                            <a href="#" class="badge text-decoration-none py-2 px-3" style="background:#f0f4ff;color:#2c6fad;font-size:12px;font-weight:500;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>Internet</a>
-                            <a href="#" class="badge text-decoration-none py-2 px-3" style="background:#f0f4ff;color:#2c6fad;font-size:12px;font-weight:500;border-radius:20px;border:1px solid #d0e0f8;"><i class="fas fa-tag me-1" style="font-size:10px;"></i>SpaceX</a>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Sidebar End -->
+                <!-- Main Content End -->
 
             </div>
         </div>
     </div>
-
-    <style>
-        .article-card { transition: background-color 0.2s ease; }
-        .article-card:hover { background-color: #f8f9ff; }
-        .article-title-link:hover { color: var(--bs-primary) !important; }
-        .img-zoomin { transition: transform 0.4s ease; }
-        .article-card:hover .img-zoomin { transform: scale(1.06); }
-        .pagination .page-link { color: var(--bs-primary); }
-        .pagination .page-item.active .page-link { background-color: var(--bs-primary); border-color: var(--bs-primary); }
-        .pagination .page-link:hover { background-color: #e9f0ff; }
-    </style>
+    <!-- Category Articles End -->
 
 {% endblock %}

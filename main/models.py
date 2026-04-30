@@ -45,7 +45,7 @@ class Article(models.Model):
     read_time=models.DurationField(blank=True, null=True)
 
     author=models.ForeignKey(Author,on_delete=models.SET_NULL,null=True)
-    category=models.ForeignKey(Category,on_delete=models.SET_NULL,null=True)
+    category=models.ForeignKey(Category,on_delete=models.SET_NULL,null=True,related_name='articles')
     tags=models.ManyToManyField(Tag)
 
     published=models.BooleanField(default=False)

@@ -12,18 +12,24 @@ class HomeView(View):
         top_articles=Article.pub_objects.order_by('-important', '-views')[:10]
         latest_news=Article.pub_objects.order_by('-created_at')[:8]
         most_viewed=Article.pub_objects.order_by('-views')[1:11]
+        feature_categories = Category.objects.all()[:4]
+
         context = {'top_articles':top_articles,
                    'latest_news':latest_news,
                    'most_viewed':most_viewed,
+                   'feature_categories': feature_categories,
         }
         return render(request,'index.html', context)
 
 
 class NewsletterCreateView(View):
-    def post(self,request):
-        Newsletter.objects.create(
-            email=request.POST['email'],
-        )
+    def post(self, request):
+        email = request.POST['email']
+        if Newsletter.objects.filter(email=email).exists():
+            messages.warning(request, "Bu email allaqachon obuna bo'lgan!")
+        else:
+            Newsletter.objects.create(email=email)
+            messages.success(request, "Muvaffaqiyatli obuna bo'ldingiz!")
         return redirect('home')
 
 
@@ -89,14 +95,15 @@ def SearchArticlesView(request):
 
 
 class CategoryView(View):
-    def get(self,request,slug):
-        category=get_object_or_404(Category,slug=slug)
-        articles=Article.pub_objects.filter(category=category)
-        context = {
-            'category':category,
-            'articles':articles,
-        }
+    def get(self, request, slug):
+        category = get_object_or_404(Category, slug=slug)
+        articles = Article.objects.filter(category=category).order_by('-created_at')
 
-        return render(request,'category.html')
+        return render(request, 'category.html', {
+            'category': category,
+            'articles': articles,
+        })
+
+
 
 

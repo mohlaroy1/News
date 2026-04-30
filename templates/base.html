@@ -46,7 +46,7 @@
                     <nav class="navbar navbar-light navbar-expand-xl">
                         <a href="index.html" class="navbar-brand mt-3">
                             <p class="text-primary display-6 mb-2" style="line-height: 0;">Newsers</p>
-                            <small class="text-body fw-normal" style="letter-spacing: 12px;">Nespaper</small>
+                            <small class="text-body fw-normal" style="letter-spacing: 12px;">Newspaper</small>
                         </a>
                         <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                             <span class="fa fa-bars text-primary"></span>
@@ -100,6 +100,16 @@
         {% block content %}
         {% endblock %}
 
+{% if messages %}
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+        {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show shadow" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
 <!-- Footer Start -->
         <div class="container-fluid bg-dark footer py-5">
@@ -113,20 +123,23 @@
                             </a>
                         </div>
                         <div class="col-lg-9">
-                            <div class="d-flex position-relative rounded-pill overflow-hidden">
-                                <input class="form-control border-0 w-100 py-3 rounded-pill" type="email" placeholder="example@gmail.com">
-                                <button type="submit" class="btn btn-primary border-0 py-3 px-5 rounded-pill text-white position-absolute" style="top: 0; right: 0;">Subscribe Now</button>
-                            </div>
+                            <form method="post" action="{% url 'newsletter-create' %}">
+                                {% csrf_token %}
+                                <div class="d-flex position-relative rounded-pill overflow-hidden">
+                                    <input class="form-control border-0 w-100 py-3 rounded-pill" type="email" name="email" placeholder="na'muna@gmail.com">
+                                    <button type="submit" class="btn btn-primary border-0 py-3 px-5 rounded-pill text-white position-absolute" style="top: 0; right: 0;">Obuna bo'lish</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
                 <div class="row g-5">
-                    <div class="col-lg-6 col-xl-3">
+                    <div class="col-lg-6 col-xl-4">
                         <div class="footer-item-1">
-                            <h4 class="mb-4 text-white">Get In Touch</h4>
-                            <p class="text-secondary line-h">Address: <span class="text-white">123 Streat, New York</span></p>
-                            <p class="text-secondary line-h">Email: <span class="text-white">Example@gmail.com</span></p>
-                            <p class="text-secondary line-h">Phone: <span class="text-white">+0123 4567 8910</span></p>
+                            <h4 class="mb-4 text-white">Aloqa uchun</h4>
+                            <p class="text-secondary line-h">Manzil: <span class="text-white">Sayilgoh ko'chasi 22, Farg'ona</span></p>
+                            <p class="text-secondary line-h">Email: <span class="text-white">mganijonova861@gmail.com</span></p>
+                            <p class="text-secondary line-h">Telefon raqam: <span class="text-white">(+998) 90-585-15-08</span></p>
                             <div class="d-flex line-h">
                                 <a class="btn btn-light me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter text-dark"></i></a>
                                 <a class="btn btn-light me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f text-dark"></i></a>
@@ -135,58 +148,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-xl-3">
-                        <div class="footer-item-2">
-                            <div class="d-flex flex-column mb-4">
-                                <h4 class="mb-4 text-white">Recent Posts</h4>
-                                <a href="#">
-                                    <div class="d-flex align-items-center">
-                                        <div class="rounded-circle border border-2 border-primary overflow-hidden">
-                                            <img src="/static/img/footer-1.jpg" class="img-zoomin img-fluid rounded-circle w-100" alt="">
-                                        </div>
-                                        <div class="d-flex flex-column ps-4">
-                                            <p class="text-uppercase text-white mb-3">Life Style</p>
-                                            <a href="#" class="h6 text-white">
-                                                Get the best speak market, news.
-                                            </a>
-                                            <small class="text-white d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9, 2024</small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <div class="d-flex align-items-center">
-                                        <div class="rounded-circle border border-2 border-primary overflow-hidden">
-                                            <img src="/static/img/footer-2.jpg" class="img-zoominimg-fluid rounded-circle w-100" alt="">
-                                        </div>
-                                        <div class="d-flex flex-column ps-4">
-                                            <p class="text-uppercase text-white mb-3">Sports</p>
-                                            <a href="#" class="h6 text-white">
-                                                Get the best speak market, news.
-                                            </a>
-                                            <small class="text-white d-block"><i class="fas fa-calendar-alt me-1"></i> Dec 9, 2024</small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-3">
-                        <div class="d-flex flex-column text-start footer-item-3">
-                            <h4 class="mb-4 text-white">Categories</h4>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Sports</a>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Magazine</a>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Lifestyle</a>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Politician</a>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Technology</a>
-                            <a class="btn-link text-white" href=""><i class="fas fa-angle-right text-white me-2"></i> Intertainment</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-xl-3">
+                    <div class="col-lg-6 col-xl-4">
                         <div class="footer-item-4">
                             <h4 class="mb-4 text-white">Our Gallary</h4>
-                            <div class="row g-2">
+                            <div class="row g-3">
                                 <div class="col-4">
                                     <div class="rounded overflow-hidden">
                                         <img src="/static/img/footer-1.jpg" class="img-zoomin img-fluid rounded w-100" alt="">
@@ -255,6 +220,16 @@
         <script src="{% static 'lib/easing/easing.min.js' %}"></script>
         <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
         <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+        <!-- Auto dismiss messages -->
+        <script>
+            setTimeout(function() {
+                document.querySelectorAll('.alert').forEach(function(alert) {
+                    alert.classList.remove('show');
+                    setTimeout(function() { alert.remove(); }, 300);
+                });
+            }, 3000);
+        </script>
 
         <!-- Template Javascript -->
         <script src="{% static 'js/main.js' %}"></script>
