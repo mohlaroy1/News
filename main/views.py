@@ -88,6 +88,8 @@ def SearchArticlesView(request):
     })
 
 
-
+class CategoryView(View):
+    def get(self,request):
+        return render(request,'category.html')
 
 

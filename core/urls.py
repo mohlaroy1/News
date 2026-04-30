@@ -4,7 +4,8 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from main.views import HomeView, NewsletterCreateView, ArticleDetailsView, CommentCreateView, ContactView,SearchArticlesView
+from main.views import HomeView, NewsletterCreateView, ArticleDetailsView, CommentCreateView, ContactView, \
+    SearchArticlesView, CategoryView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,6 +15,7 @@ urlpatterns = [
     path('<slug:slug>/add-comment/', CommentCreateView.as_view(), name='comment-create'),
     path('contact-us/', ContactView.as_view(), name='contact-us'),
     path('search/',SearchArticlesView, name='search-articles'),
+    path('category/', CategoryView.as_view(), name='category'),
 
 
 ]

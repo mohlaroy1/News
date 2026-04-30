@@ -1,0 +1,303 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-dark py-3 mb-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'home' %}" class="text-white text-decoration-none">
+                            <i class="fas fa-home me-1"></i>Bosh sahifa
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#" class="text-primary text-decoration-none">Kategoriyalar</a>
+                    </li>
+                    <li class="breadcrumb-item active text-secondary" aria-current="page">
+                        {{ category.name }}
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Category Title Start -->
+    <div class="container-fluid py-3">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex align-items-center">
+                    <div class="bg-primary me-3" style="width: 5px; height: 35px; border-radius: 3px;"></div>
+                    <h4 class="text-uppercase fw-bold mb-0">{{ category.name }}</h4>
+                </div>
+                <span class="text-muted small">
+                    <i class="fas fa-newspaper me-1 text-primary"></i>
+                    Jami: <strong class="text-dark">{{ articles.paginator.count }}</strong> ta maqola
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Category Title End -->
+
+
+    <!-- Articles Listing Start -->
+    <div class="container-fluid pb-5">
+        <div class="container">
+            <div class="row g-0">
+
+                <!-- Main Articles Column -->
+                <div class="col-lg-8">
+
+                    {% if articles %}
+                        {% for article in articles %}
+                        <!-- Article Card Start -->
+                        <div class="row g-0 mb-4 pb-4 border-bottom article-card">
+
+                            <!-- Image -->
+                            <div class="col-md-4">
+                                <div class="overflow-hidden rounded position-relative" style="height: 215px;">
+                                    {% if article.image %}
+                                        <img src="{{ article.image.url }}"
+                                             class="img-zoomin img-fluid w-100 h-100"
+                                             alt="{{ article.title }}"
+                                             style="object-fit: cover;">
+                                    {% else %}
+                                        <img src="{% static 'img/news-1.jpg' %}"
+                                             class="img-zoomin img-fluid w-100 h-100"
+                                             alt="{{ article.title }}"
+                                             style="object-fit: cover;">
+                                    {% endif %}
+                                    <span class="position-absolute top-0 start-0 m-2">
+                                        <a href="#" class="badge bg-primary text-white text-uppercase text-decoration-none"
+                                           style="font-size: 11px;">
+                                            {{ category.name }}
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="col-md-8 ps-md-4 pt-3 pt-md-0">
+
+                                <!-- Meta -->
+                                <div class="d-flex flex-wrap gap-3 mb-2">
+                                    <span class="text-muted small">
+                                        <i class="fas fa-user-circle text-primary me-1"></i>
+                                        <a href="#" class="text-muted text-decoration-none">{{ article.author }}</a>
+                                    </span>
+                                    <span class="text-muted small">
+                                        <i class="fas fa-calendar-alt text-primary me-1"></i>
+                                        {{ article.created_at|date:"d M, Y" }}
+                                    </span>
+                                    <span class="text-muted small">
+                                        <i class="fas fa-eye text-primary me-1"></i>
+                                        {{ article.views }} ko'rishlar
+                                    </span>
+                                </div>
+
+                                <!-- Title -->
+                                <h5 class="fw-bold mb-2">
+                                    <a href="{% url 'article-detail' article.slug %}"
+                                       class="text-dark text-decoration-none article-title-link">
+                                        {{ article.title }}
+                                    </a>
+                                </h5>
+
+                                <!-- Intro -->
+                                <p class="text-muted mb-3" style="font-size: 0.92rem; line-height: 1.65;">
+                                    {{ article.intro|truncatechars:180 }}
+                                </p>
+
+                                <!-- Tags -->
+                                {% if article.tags.all %}
+                                <div class="d-flex flex-wrap gap-1 mb-3">
+                                    {% for tag in article.tags.all %}
+                                        <a href="#" class="badge text-decoration-none"
+                                           style="background: #f0f4ff; color: #2c6fad; font-size: 11px;
+                                                  font-weight: 500; padding: 4px 9px; border-radius: 20px;
+                                                  border: 1px solid #d0e0f8;">
+                                            <i class="fas fa-tag me-1" style="font-size: 10px;"></i>{{ tag.name }}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+
+                                <!-- Read More -->
+                                <a href="{% url 'article-detail' article.slug %}"
+                                   class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                    Batafsil o'qish <i class="fas fa-arrow-right ms-1" style="font-size: 11px;"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                        <!-- Article Card End -->
+                        {% endfor %}
+
+                        <!-- Pagination Start -->
+                        {% if articles.has_other_pages %}
+                        <div class="d-flex justify-content-center mt-4">
+                            <ul class="pagination">
+                                {% if articles.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ articles.previous_page_number }}">
+                                            <i class="fas fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link"><i class="fas fa-angle-left"></i></span>
+                                    </li>
+                                {% endif %}
+
+                                {% for num in articles.paginator.page_range %}
+                                    {% if articles.number == num %}
+                                        <li class="page-item active">
+                                            <span class="page-link">{{ num }}</span>
+                                        </li>
+                                    {% elif num > articles.number|add:'-3' and num < articles.number|add:'3' %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if articles.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ articles.next_page_number }}">
+                                            <i class="fas fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link"><i class="fas fa-angle-right"></i></span>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        <!-- Pagination End -->
+
+                    {% else %}
+                        <!-- Empty State -->
+                        <div class="text-center py-5">
+                            <i class="fas fa-newspaper text-muted mb-3" style="font-size: 3rem;"></i>
+                            <h5 class="text-muted mt-3">Bu kategoriyada hozircha maqola mavjud emas.</h5>
+                            <a href="{% url 'home' %}" class="btn btn-primary mt-3 rounded-pill px-4">
+                                <i class="fas fa-home me-2"></i>Bosh sahifaga qaytish
+                            </a>
+                        </div>
+                    {% endif %}
+
+                </div>
+                <!-- Main Articles Column End -->
+
+
+                <!-- Sidebar Start -->
+                <div class="col-lg-4 ps-lg-5">
+
+                    <!-- Popular Articles -->
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary me-3" style="width: 4px; height: 28px; border-radius: 3px;"></div>
+                            <h5 class="text-uppercase fw-bold mb-0">Eng Ko'p O'qilgan</h5>
+                        </div>
+                        {% for popular in popular_articles %}
+                        <a href="{% url 'article-detail' popular.slug %}" class="text-decoration-none">
+                            <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+                                <div class="overflow-hidden rounded flex-shrink-0" style="width: 80px; height: 65px;">
+                                    {% if popular.image %}
+                                        <img src="{{ popular.image.url }}" class="img-zoomin img-fluid w-100 h-100"
+                                             alt="{{ popular.title }}" style="object-fit: cover;">
+                                    {% else %}
+                                        <img src="{% static 'img/news-1.jpg' %}" class="img-zoomin img-fluid w-100 h-100"
+                                             alt="" style="object-fit: cover;">
+                                    {% endif %}
+                                </div>
+                                <div class="ps-3">
+                                    <p class="text-dark fw-semibold mb-1 lh-sm" style="font-size: 0.88rem;">
+                                        {{ popular.title|truncatechars:65 }}
+                                    </p>
+                                    <small class="text-muted">
+                                        <i class="fas fa-eye text-primary me-1"></i>{{ popular.views }}
+                                        <span class="mx-1">·</span>
+                                        <i class="fas fa-calendar-alt text-primary me-1"></i>{{ popular.created_at|date:"d M" }}
+                                    </small>
+                                </div>
+                            </div>
+                        </a>
+                        {% empty %}
+                            <p class="text-muted small">Hozircha maqolalar yo'q.</p>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary me-3" style="width: 4px; height: 28px; border-radius: 3px;"></div>
+                            <h5 class="text-uppercase fw-bold mb-0">Kategoriyalar</h5>
+                        </div>
+                        <div class="d-flex flex-column gap-2">
+                            {% for cat in nav_categories %}
+                            <a href="{% url 'category' cat.slug %}"
+                               class="d-flex justify-content-between align-items-center px-3 py-2 rounded text-decoration-none
+                               {% if cat.id == category.id %}bg-primary text-white{% else %}bg-light text-dark{% endif %}">
+                                <span>
+                                    <i class="fas fa-angle-right me-2
+                                       {% if cat.id == category.id %}text-white{% else %}text-primary{% endif %}"></i>
+                                    {{ cat.name }}
+                                </span>
+                                <span class="badge rounded-pill
+                                    {% if cat.id == category.id %}bg-white text-primary{% else %}bg-primary text-white{% endif %}">
+                                    {{ cat.article_count }}
+                                </span>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Tags Cloud -->
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary me-3" style="width: 4px; height: 28px; border-radius: 3px;"></div>
+                            <h5 class="text-uppercase fw-bold mb-0">Teglar</h5>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for tag in all_tags %}
+                                <a href="#" class="badge text-decoration-none py-2 px-3"
+                                   style="background: #f0f4ff; color: #2c6fad; font-size: 12px;
+                                          font-weight: 500; border-radius: 20px; border: 1px solid #d0e0f8;">
+                                    <i class="fas fa-tag me-1" style="font-size: 10px;"></i>{{ tag.name }}
+                                </a>
+                            {% empty %}
+                                <p class="text-muted small">Teglar mavjud emas.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Sidebar End -->
+
+            </div>
+        </div>
+    </div>
+    <!-- Articles Listing End -->
+
+    <style>
+        .article-card { transition: background-color 0.2s ease; }
+        .article-card:hover { background-color: #f8f9ff; }
+        .article-title-link:hover { color: var(--bs-primary) !important; }
+        .img-zoomin { transition: transform 0.4s ease; }
+        .article-card:hover .img-zoomin { transform: scale(1.06); }
+        .pagination .page-link { color: var(--bs-primary); }
+        .pagination .page-item.active .page-link {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+        }
+        .pagination .page-link:hover { background-color: #e9f0ff; }
+    </style>
+
+{% endblock %}

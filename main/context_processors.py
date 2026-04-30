@@ -1,5 +1,6 @@
 import requests
 import datetime
+from .models import *
 
 def weather(request):
     city='fergana'
@@ -12,4 +13,10 @@ def weather(request):
         'temp_c': temp_c,
         'icon': icon,
         'time': datetime.datetime.now().strftime('%d.%m.%Y %H:%M')
+    }
+
+def nav_categories(request):
+    categories=Category.objects.all()
+    return {
+        'nav_categories': categories,
     }
